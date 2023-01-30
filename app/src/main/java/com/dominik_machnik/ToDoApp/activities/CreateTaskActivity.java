@@ -111,7 +111,7 @@ public class CreateTaskActivity extends AppCompatActivity implements DatePickerD
                 String time = timeTask.getText().toString();
 
 
-                if (name.trim().length() > 0 && desc.trim().length() > 0){
+                if (name.trim().length() > 0 && desc.trim().length() > 0 && date.trim().length() > 0 && time.trim().length() > 0){
 
                     DbHandler dbHandler = new DbHandler(CreateTaskActivity.this);
                     dbHandler.insertTasks(name, desc, date, time);
