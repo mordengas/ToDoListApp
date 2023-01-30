@@ -1,0 +1,25 @@
+<resources>
+    <string name="app_name">Planer Zadań</string>
+    <string name="delete_all">Usuń Wszystkie</string>
+    <string name="completed">Ukończone</string>
+    <string name="desc">Opis</string>
+    <string name="info">Informacje</string>
+    <string name="hint_name">Nazwa </string>
+    <string name="hint_description">Opis</string>
+    <string name="incomplete">Nieukończone</string>
+
+    <string name="title_alert_dialog">Usuń Zadanie</string>
+    <string name="message_alert_dialog">Czy na pewno chcesz usunąć to zadanie? Ta czynność jest nieodwracalna.</string>
+
+    <string name="title_alert_dialog_all">Usuń wszytskie zadania.</string>
+    <string name="message_alert_dialog_all">Czy na pewno chcesz usunąć wszystkie zadania? Ta czynność jest nieodwracalna.</string>
+
+    <string name="button_positive">Akceptuj</string>
+    <string name="button_negative">Anuluj</string>
+
+    <string name="text_name">Nazwa zadania: </string>
+    <string name="text_description">Opis zadania: </string>
+    <string name="status_task">Ukończone</string>
+
+
+</resources>
