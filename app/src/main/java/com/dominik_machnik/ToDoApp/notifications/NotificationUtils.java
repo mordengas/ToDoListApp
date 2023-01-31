@@ -112,7 +112,7 @@ public class NotificationUtils {
             cal.set(Calendar.MONTH, Integer.parseInt(dateArray[1]) - 1);
             cal.set(Calendar.DAY_OF_MONTH, Integer.parseInt(dateArray[0]));
             cal.set(Calendar.HOUR_OF_DAY, Integer.parseInt(timeArray[0]));
-            cal.set(Calendar.MINUTE, Integer.parseInt(timeArray[1]));
+            cal.set(Calendar.MINUTE, Integer.parseInt(timeArray[1]) - 1);
 
 
             alarmManager.set(AlarmManager.RTC_WAKEUP, cal.getTimeInMillis(), pendingIntent);

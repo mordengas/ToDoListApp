@@ -7,9 +7,15 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.hardware.camera2.CameraAccessException;
+import android.hardware.camera2.CameraManager;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,6 +23,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
 
 import com.dominik_machnik.ToDoApp.R;
 import com.dominik_machnik.ToDoApp.adapter.TaskAdapter;
@@ -53,10 +61,16 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 
+    @BindView(R.id.buttonFlash)
+    ToggleButton buttonFlash;
+
 
     private DbHandler db;
     private ArrayList<Task> tasks;
     private TaskAdapter taskAdapter;
+
+    boolean hasCameraFlash = false;
+    boolean flashOn = false;
 
 
 
@@ -69,6 +83,25 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
 
         setSupportActionBar(toolbar);
         db = new DbHandler(this);
+
+
+
+        hasCameraFlash = getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_FLASH);
+
+        buttonFlash.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(hasCameraFlash){
+                    if(flashOn){
+                        flashOn = false;
+                        flashlightOff();
+                    }else {
+                        flashOn = true;
+                        flashlightOn();
+                    }
+                }else Toast.makeText(MainActivity.this, "Twoje urządzenie nie posiada latarki.", Toast.LENGTH_SHORT).show();
+            }
+        });
 
 
     }
@@ -231,6 +264,38 @@ public class MainActivity extends AppCompatActivity implements TaskAdapter.ItemC
                 .show();
 
     }
+
+    private void flashlightOn(){
+        CameraManager cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+        try{
+            assert cameraManager != null;
+            String cameraId = cameraManager.getCameraIdList()[0];
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                cameraManager.setTorchMode(cameraId, true);
+            }
+            Toast.makeText(MainActivity.this, "Latarka jest włączona.", Toast.LENGTH_SHORT).show();
+        }
+        catch(CameraAccessException e){
+            Log.e("Camera Problem", "Cannot turn on camera flashlight");
+        }
+    }
+
+    private void flashlightOff(){
+        CameraManager cameraManager = (CameraManager) getSystemService(Context.CAMERA_SERVICE);
+        try{
+            assert cameraManager != null;
+            String cameraId = cameraManager.getCameraIdList()[0];
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                cameraManager.setTorchMode(cameraId, false);
+            }
+            Toast.makeText(MainActivity.this, "Latarka jest wyłączona.", Toast.LENGTH_SHORT).show();
+        }
+        catch(CameraAccessException e){
+            Log.e("Camera Problem", "Cannot turn off camera flashlight");
+        }
+    }
+
+
 
 
 }
