@@ -1,6 +1,6 @@
 # ToDoListApp
 
-A feature-rich Android To-Do List application created as a university class project (Projekt na zaliczenie PUM). 
+A Android To-Do List application created as a university class project (Projekt na zaliczenie PUM). 
 
 This app allows users to efficiently manage their daily tasks, set reminders, and keep track of completed activities. It features a clean, Material Design-inspired user interface and utilizes a local SQLite database for data persistence.
 
